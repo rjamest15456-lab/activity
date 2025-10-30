@@ -32,15 +32,14 @@
     header {
       width: 100%;
       height: 80px;
-      background-color: #45474e; /* modern blue */
+      background-color: #1d4ed8; /* modern blue */
       display: flex;
       justify-content: center;
       align-items: center;
       margin-bottom: 8px;
-      border-radius: 5px;
     }
     header img.logo {
-      height: 40px;
+      height: 50px;
       width: auto;
     }
     .ip-display {
@@ -82,10 +81,10 @@
       min-width: 120px;
     }
     button.yes {
-      background-color: #212fa8;
+      background-color: #16a34a;
     }
     button.yes:hover {
-      background-color: #1d3ab6;
+      background-color: #15803d;
     }
     button.no {
       background-color: #dc2626;
@@ -99,7 +98,7 @@
   <div class="container">
     <header>
       <img
-        src="https://i.imghippo.com/files/qs3400WkU.png"
+        src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.svg"
         alt="Logo"
         class="logo"
       />
@@ -119,8 +118,8 @@
       <line x1="20" y1="50" x2="44" y2="26" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/>
     </svg>
     <div class="btn-group">
-      <button class="yes">Yes, it's me</button>
-      <button class="no">No, it's not me</button>
+      <button class="yes" onclick="window.location.href='https://example.com/allow-login'">Yes, it's me</button>
+      <button class="no" onclick="window.location.href='https://example.com/reject-login'">No, it's not me</button>
     </div>
   </div>
 </body>
