@@ -3,34 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Login Activity</title>
+<title>Login Activity with Leaflet Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+ integrity="sha256-sA+eNwvqeZBxpqlMXtYh+LO4FAb+jPeu3mC2A50p6IKc=" crossorigin="" />
 <style>
-  /* Reset and base styles */
-  body, html {
-    margin: 0; 
-    padding: 0; 
-    height: 100vh; 
-    font-family: Arial, sans-serif;
-    background: #f0f2f5;
+  html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #f7f9fc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  /* Centered container taking minimal width */
   .container {
     width: 90%;
-    max-width: 600px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    max-width: 620px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     overflow: hidden;
     display: flex;
     flex-direction: column;
   }
-  /* Header with centered logo horizontally and vertically */
   header {
-    background: #0052cc;
     height: 80px;
+    background-color: #1d4ed8; /* modern blue */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,51 +37,51 @@
     height: 50px;
     width: auto;
   }
-  /* Content area with some padding */
   .content {
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
-  /* IP display styling */
   .ip-display {
-    font-size: 1rem;
     font-weight: 600;
+    font-size: 1rem;
+    color: #37517e;
     text-align: center;
   }
-  /* Buttons container */
+  #map {
+    width: 100%;
+    height: 320px;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(29, 78, 216, 0.2);
+  }
   .btn-group {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 20px;
   }
   button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
     cursor: pointer;
+    font-size: 1rem;
+    padding: 12px 32px;
+    border-radius: 8px;
+    border: none;
     color: white;
+    font-weight: 600;
     transition: background-color 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   }
   button.yes {
-    background-color: #28a745;
+    background-color: #16a34a;
   }
   button.yes:hover {
-    background-color: #218838;
+    background-color: #15803d;
   }
   button.no {
-    background-color: #dc3545;
+    background-color: #dc2626;
   }
   button.no:hover {
-    background-color: #c82333;
-  }
-  /* Responsive map container */
-  #map {
-    width: 100%;
-    height: 300px;
-    border-radius: 6px;
+    background-color: #b91c1c;
   }
 </style>
 </head>
@@ -91,7 +89,6 @@
 
 <div class="container">
   <header>
-    <!-- Use your logo URL here -->
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.svg" alt="Logo" class="logo" />
   </header>
   <div class="content">
@@ -106,16 +103,26 @@
   </div>
 </div>
 
-<!-- Google Maps JavaScript API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-oC1Pjwt7QAUo8jhHJDRAtGdDirFp6rKy95So9HNgPXU="
+  crossorigin=""></script>
 <script>
-  function initMap() {
-    // Moscow coordinates
-    const moscow = { lat: 55.7558, lng: 37.6173 };
-    const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 10,
-      center: moscow,
-      disableDefaultUI: true,
-    });
-    const marker = new google.maps.Marker({
-      position: moscow,
+  // Initialize the map
+  const map = L.map('map').setView([55.7558, 37.6173], 11);
+
+  // Add OpenStreetMap tile layer with attribution
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  // Add a marker at Moscow
+  L.marker([55.7558, 37.6173])
+    .addTo(map)
+    .bindPopup('Moscow, Russia')
+    .openPopup();
+</script>
+
+</body>
+</html>
