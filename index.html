@@ -1,146 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Login Activity with Leaflet Map</title>
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-sA+eNwvqeZBxpqlMXtYh+LO4FAb+jPeu3mC2A50p6IKc="
-  crossorigin=""
-/>
-<style>
-  html,
-  body {
-    height: 100%;
-    margin: 0;
-    background-color: #f7f9fc;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .container {
-    width: 90%;
-    max-width: 620px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  header {
-    height: 80px;
-    background-color: #1d4ed8; /* modern blue */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  header img.logo {
-    height: 50px;
-    width: auto;
-  }
-  .content {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .ip-display {
-    font-weight: 600;
-    font-size: 1rem;
-    color: #37517e;
-    text-align: center;
-  }
-  #map {
-    width: 100%;
-    height: 360px;
-    border-radius: 12px;
-    box-shadow: 0 6px 14px rgba(29, 78, 216, 0.2);
-    contain: paint; /* Fix rendering bugs in some browsers */
-  }
-  .btn-group {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  button {
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 12px 32px;
-    border-radius: 8px;
-    border: none;
-    color: white;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-  }
-  button.yes {
-    background-color: #16a34a;
-  }
-  button.yes:hover {
-    background-color: #15803d;
-  }
-  button.no {
-    background-color: #dc2626;
-  }
-  button.no:hover {
-    background-color: #b91c1c;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Activity Confirmation</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background-color: #f7f9fc;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 90%;
+      max-width: 620px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      gap: 24px;
+      text-align: center;
+    }
+    header {
+      width: 100%;
+      height: 80px;
+      background-color: #1d4ed8; /* modern blue */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    header img.logo {
+      height: 50px;
+      width: auto;
+    }
+    .ip-display {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #37517e;
+    }
+    .message {
+      font-size: 1.15rem;
+      color: #253858;
+      max-width: 500px;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .icon-device {
+      width: 150px;
+      height: 150px;
+      fill: #1d4ed8;
+      margin-bottom: 12px;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+    button {
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 12px 32px;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      flex: 1;
+      min-width: 120px;
+    }
+    button.yes {
+      background-color: #16a34a;
+    }
+    button.yes:hover {
+      background-color: #15803d;
+    }
+    button.no {
+      background-color: #dc2626;
+    }
+    button.no:hover {
+      background-color: #b91c1c;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.svg"
-      alt="Logo"
-      class="logo"
-    />
-  </header>
-  <div class="content">
+  <div class="container">
+    <header>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.svg"
+        alt="Logo"
+        class="logo"
+      />
+    </header>
     <div class="ip-display">
-      You logged in from IP:
-      <strong>123.45.67.89</strong> (Moscow, Russia)
+      You logged in from IP: <strong>123.45.67.89</strong> (Moscow, Russia)
     </div>
-    <div id="map"></div>
+    <div class="message">
+      Did you just login to your account on this device?<br />
+      Please confirm if this was you by clicking either button below to allow or reject this login activity.
+    </div>
+    <svg class="icon-device" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" role="img">
+      <rect x="12" y="8" width="40" height="48" rx="6" ry="6" stroke="#1d4ed8" stroke-width="3" fill="none"/>
+      <rect x="24" y="52" width="16" height="2" fill="#1d4ed8"/>
+      <circle cx="32" cy="14" r="3" fill="#1d4ed8"/>
+      <path d="M20 32l8 8 16-16" stroke="#16a34a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="20" y1="50" x2="44" y2="26" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/>
+    </svg>
     <div class="btn-group">
       <button class="yes">Yes, it's me</button>
       <button class="no">No, it's not me</button>
     </div>
   </div>
-</div>
-
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-oC1Pjwt7QAUo8jhHJDRAtGdDirFp6rKy95So9HNgPXU="
-  crossorigin=""
-></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const moscowCoords = [55.7558, 37.6173];
-    const map = L.map("map", { zoomControl: true }).setView(moscowCoords, 11);
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
-
-    const marker = L.marker(moscowCoords).addTo(map);
-    marker.bindPopup("<b>Moscow, Russia</b><br>Login location").openPopup();
-
-    map.on("click", function (e) {
-      L.popup()
-        .setLatLng(e.latlng)
-        .setContent(
-          `You clicked at ${e.latlng.lat.toFixed(4)}, ${e.latlng.lng.toFixed(4)}`
-        )
-        .openOn(map);
-    });
-  });
-</script>
 </body>
 </html>
