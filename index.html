@@ -4,14 +4,19 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Login Activity with Leaflet Map</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
- integrity="sha256-sA+eNwvqeZBxpqlMXtYh+LO4FAb+jPeu3mC2A50p6IKc=" crossorigin="" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-sA+eNwvqeZBxpqlMXtYh+LO4FAb+jPeu3mC2A50p6IKc="
+  crossorigin=""
+/>
 <style>
-  html, body {
+  html,
+  body {
     height: 100%;
     margin: 0;
     background-color: #f7f9fc;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +26,7 @@
     max-width: 620px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -51,9 +56,10 @@
   }
   #map {
     width: 100%;
-    height: 360px; /* taller for better usability */
+    height: 360px;
     border-radius: 12px;
     box-shadow: 0 6px 14px rgba(29, 78, 216, 0.2);
+    contain: paint; /* Fix Chrome rendering bug */
   }
   .btn-group {
     display: flex;
@@ -69,7 +75,7 @@
     color: white;
     font-weight: 600;
     transition: background-color 0.3s ease;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
   }
   button.yes {
     background-color: #16a34a;
@@ -86,14 +92,18 @@
 </style>
 </head>
 <body>
-
 <div class="container">
   <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.svg" alt="Logo" class="logo" />
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.svg"
+      alt="Logo"
+      class="logo"
+    />
   </header>
   <div class="content">
     <div class="ip-display">
-      You logged in from IP: <strong>123.45.67.89</strong> (Moscow, Russia)
+      You logged in from IP:
+      <strong>123.45.67.89</strong> (Moscow, Russia)
     </div>
     <div id="map"></div>
     <div class="btn-group">
@@ -103,35 +113,36 @@
   </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   integrity="sha256-oC1Pjwt7QAUo8jhHJDRAtGdDirFp6rKy95So9HNgPXU="
-  crossorigin=""></script>
+  crossorigin=""
+></script>
 <script>
-  // Initialize Leaflet map centered on Moscow at zoom 11
-  const map = L.map('map', {
-    zoomControl: true, // enable zoom buttons
-    attributionControl: true,
-  }).setView([55.7558, 37.6173], 11);
+  // Ensure map initialization after DOM content loaded to prevent sizing errors
+  document.addEventListener("DOMContentLoaded", () => {
+    const map = L.map("map", {
+      zoomControl: true,
+    }).setView([55.7558, 37.6173], 11);
 
-  // Add OpenStreetMap tiles with attribution required
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
 
-  // Add a clickable marker with popup
-  const marker = L.marker([55.7558, 37.6173]).addTo(map);
-  marker.bindPopup('<b>Moscow, Russia</b><br>Login location').openPopup();
+    const marker = L.marker([55.7558, 37.6173]).addTo(map);
+    marker.bindPopup("<b>Moscow, Russia</b><br>Login location").openPopup();
 
-  // Optional: popup with coordinates on any map click
-  map.on('click', function(e) {
-    L.popup()
-      .setLatLng(e.latlng)
-      .setContent(`You clicked at ${e.latlng.lat.toFixed(4)}, ${e.latlng.lng.toFixed(4)}`)
-      .openOn(map);
+    map.on("click", function (e) {
+      L.popup()
+        .setLatLng(e.latlng)
+        .setContent(
+          `You clicked at ${e.latlng.lat.toFixed(4)}, ${e.latlng.lng.toFixed(4)}`
+        )
+        .openOn(map);
+    });
   });
 </script>
-
 </body>
 </html>
