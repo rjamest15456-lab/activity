@@ -59,7 +59,7 @@
     height: 360px;
     border-radius: 12px;
     box-shadow: 0 6px 14px rgba(29, 78, 216, 0.2);
-    contain: paint; /* Fix Chrome rendering bug */
+    contain: paint; /* Fix rendering bugs in some browsers */
   }
   .btn-group {
     display: flex;
@@ -119,11 +119,9 @@
   crossorigin=""
 ></script>
 <script>
-  // Ensure map initialization after DOM content loaded to prevent sizing errors
   document.addEventListener("DOMContentLoaded", () => {
-    const map = L.map("map", {
-      zoomControl: true,
-    }).setView([55.7558, 37.6173], 11);
+    const moscowCoords = [55.7558, 37.6173];
+    const map = L.map("map", { zoomControl: true }).setView(moscowCoords, 11);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
@@ -131,7 +129,7 @@
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    const marker = L.marker([55.7558, 37.6173]).addTo(map);
+    const marker = L.marker(moscowCoords).addTo(map);
     marker.bindPopup("<b>Moscow, Russia</b><br>Login location").openPopup();
 
     map.on("click", function (e) {
